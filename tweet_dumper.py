@@ -4,6 +4,7 @@ from collections import namedtuple
 from contextlib import contextmanager
 from os import environ
 import sqlite3
+import sys
 
 import tweepy
 
@@ -12,7 +13,7 @@ consumer_secret = environ.get('CONSUMER_SECRET')
 access_key = environ.get('ACCESS_TOKEN')
 access_secret = environ.get('ACCESS_SECRET')
 
-DB = 'pytips.db'
+DB = 'tweets.db'
 PYTIP_ACCOUNT = 'python_tip'
 SQL = '''INSERT INTO tweets (id, text, created_at, favorite_count, retweet_count)
          VALUES (?, ?, ?, ?, ?)'''
@@ -68,6 +69,11 @@ def save_tweets(tweets):
 if __name__ == '__main__':
     create_db()
 
-    tweets = list(get_all_tweets(PYTIP_ACCOUNT))
+    try:
+        handle = sys.argv[1]
+    except IndexError:
+        handle = PYTIP_ACCOUNT
+
+    tweets = list(get_all_tweets(handle))
 
     save_tweets(tweets)

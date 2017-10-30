@@ -32,6 +32,7 @@ def connect_db(db=DB):
     '''https://github.com/pybites/100DaysOfCode - day 25'''
     try:
         conn = sqlite3.connect(db)
+        conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         yield cursor
     finally:
@@ -41,12 +42,12 @@ def connect_db(db=DB):
 
 def create_db():
     with connect_db() as cursor:
-        cursor.execute('''DROP TABLE IF EXISTS tweets''')
-        cursor.execute('''CREATE TABLE tweets
-                        (id, text, created_at, favorite_count, retweet_count)''')
+        cursor.execute('DROP TABLE IF EXISTS tweets')
+        cursor.execute('''CREATE TABLE tweets (id, text, created_at,
+                          favorite_count, retweet_count)''')
 
 
-def get_all_tweets(screen_name):
+def load_tweets_from_api(screen_name):
     api = connect_twitter_api()
 
     # http://docs.tweepy.org/en/v3.5.0/cursor_tutorial.html
@@ -66,6 +67,17 @@ def save_tweets(tweets):
         cursor.executemany(SQL, list(tweets))
 
 
+def get_tweets_db(tag=None):
+    with connect_db() as cursor:
+        sql = 'SELECT * FROM tweets '
+        if tag is not None:
+            tag = tag.lower()
+            sql += 'WHERE LOWER(text) LIKE "%{}%" '.format(tag)
+        sql += 'ORDER BY favorite_count DESC'
+        cursor.execute(sql)
+        return cursor.fetchall()
+
+
 if __name__ == '__main__':
     create_db()
 
@@ -74,6 +86,6 @@ if __name__ == '__main__':
     except IndexError:
         handle = PYTIP_ACCOUNT
 
-    tweets = list(get_all_tweets(handle))
+    tweets = list(load_tweets_from_api(handle))
 
     save_tweets(tweets)

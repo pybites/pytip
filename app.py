@@ -29,9 +29,11 @@ def index(tag=None):
         filter_ = "%{}%".format(tag.lower())
         tips = session.query(Tip)
         tips = tips.filter(Tip.text.ilike(filter_))
-        tips = tips.all()
     else:
-        tips = session.query(Tip).all()
+        tips = session.query(Tip)
+
+    tips = tips.order_by(Tip.likes.desc())
+    tips = tips.all()
 
     return {'search_tag': tag or '',
             'popular_tags': popular_tags,

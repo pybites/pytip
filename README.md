@@ -4,6 +4,8 @@ App built for [Code Challenge 40 - Daily Python Tip Part 1 - Make a Web App](htt
 
 I deployed it to [https://pytip.herokuapp.com](https://pytip.herokuapp.com)
 
+![python pybites code challenge 40 pytip bottle app](static/img/pytip-app.png)
+
 Modules:
 * `db.py` -> SQLAlchemy models
 * `import_tweets.py` -> syncs [python_tip](https://twitter.com/python_tip)'s tweets to a Postgres DB

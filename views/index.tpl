@@ -5,7 +5,14 @@
 	<div class="mui-row">
 		<div class="mui-col-sm-10 mui-col-sm-offset-1">
 
-			<div class="mui--text-dark-secondary mui--text-body2"><h1><a href="/">HOME</a> | DAILY PYTHON TIPS ({{ len(tips) }})</h1></div>
+			<div class="mui--text-dark-secondary mui--text-body2">
+				<h1>
+					DAILY PYTHON TIPS ({{ len(tips) }})
+					% if search_tag:
+						<small>&nbsp;(<a href="/">show all</a>)</small>
+					% end
+				</h1>
+			</div>
 			<div class="mui-divider"></div>
 			% for tip in tips:
 				<div class='tip'>

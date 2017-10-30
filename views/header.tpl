@@ -22,12 +22,12 @@
 
 	<form action="/" method="GET" class="mui-form">
 		<div class="mui-textfield">
-			<input type="text" name="tag" placeholder="Search" value="{{ tag }}">
+			<input type="text" name="tag" placeholder="Search" value="{{ search_tag }}">
 		</div>
 	</form>
 
-	% for tag, count in popular_tags:
-	  <a style="font-size: {{ count/10 + 1 }}em;" href="/{{ tag }}">#{{ tag }}</a>&nbsp;&nbsp;
+	% for tag in popular_tags:
+	  <a style="font-size: {{ tag.count/10 + 1 }}em;" href="/{{ tag.name }}">#{{ tag.name }}</a>&nbsp;&nbsp;
 	% end
 	<br>
 	<br>

@@ -1,17 +1,14 @@
-from collections import Counter
 import os
 import re
 
 from bottle import route, run, request, static_file, view
+from sqlalchemy.orm import sessionmaker
 
-from tweets import get_tweets_db
+from db import Base, engine, Tip, Hashtag
 
-
-def get_hashtags(tips):
-    blob = ' '.join(t['text'].lower() for t in tips)
-    cnt = Counter(re.findall(r'#([a-z]{3,})', blob))
-    cnt.pop('python', None)
-    return sorted(cnt.items())
+Base.metadata.create_all(engine)
+create_session = sessionmaker(bind=engine)
+session = create_session()
 
 
 @route('/static/<filename:path>')
@@ -26,14 +23,17 @@ def index(tag=None):
     if tag is None:
         tag = request.query.get('tag') or None
 
-    tips = get_tweets_db()
-    popular_tags = get_hashtags(tips)
+    popular_tags = session.query(Hashtag).all()
 
-    if tag is not None and re.match(r'^[a-z]+$', tag):
-        # 2nd db call need to enhance
-        tips = get_tweets_db(tag)
+    if tag is not None and re.match(r'^[a-z0-9]+$', tag.lower()):
+        filter_ = "%{}%".format(tag.lower())
+        tips = session.query(Tip)
+        tips = tips.filter(Tip.text.ilike(filter_))
+        tips = tips.all()
+    else:
+        tips = session.query(Tip).all()
 
-    return {'tag': tag or '',
+    return {'search_tag': tag or '',
             'popular_tags': popular_tags,
             'tips': tips}
 

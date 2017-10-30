@@ -33,5 +33,8 @@
 	% end
 	<br>
 	<br>
+	<a href="https://docs.google.com/forms/d/e/1FAIpQLScsHklRH2-uplGYH_vxhtIin-zJS44bXQkAWCH7_N7nUdrGXw/viewform" target="_blank">
+		<button class="mui-btn mui-btn--primary">New Tip</button>
+	</a>
 
   </div>

@@ -1,5 +1,7 @@
 # Daily Python Tips
 
+[![BCH compliance](https://bettercodehub.com/edge/badge/pybites/pytip?branch=master)](https://bettercodehub.com/)
+
 App built for [Code Challenge 40 - Daily Python Tip Part 1 - Make a Web App](https://pybit.es/codechallenge40.html)
 
 I deployed it to [https://pytip.herokuapp.com](https://pytip.herokuapp.com)

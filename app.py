@@ -1,14 +1,8 @@
 import os
-import re
 
 from bottle import route, run, request, static_file, view
-from sqlalchemy.orm import sessionmaker
 
-from db import Base, engine, Tip, Hashtag
-
-Base.metadata.create_all(engine)
-create_session = sessionmaker(bind=engine)
-session = create_session()
+from db import get_tags, get_tips
 
 
 @route('/static/<filename:path>')
@@ -23,17 +17,9 @@ def index(tag=None):
     if tag is None:
         tag = request.query.get('tag') or None
 
-    popular_tags = session.query(Hashtag).all()
+    popular_tags = get_tags()
 
-    if tag is not None and re.match(r'^[a-z0-9]+$', tag.lower()):
-        filter_ = "%{}%".format(tag.lower())
-        tips = session.query(Tip)
-        tips = tips.filter(Tip.text.ilike(filter_))
-    else:
-        tips = session.query(Tip)
-
-    tips = tips.order_by(Tip.likes.desc())
-    tips = tips.all()
+    tips = get_tips(tag)
 
     return {'search_tag': tag or '',
             'popular_tags': popular_tags,

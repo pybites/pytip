@@ -1,13 +1,17 @@
 import os
+import re
 
 import bottle
 from bottle.ext import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Sequence, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 engine = create_engine(os.environ.get('DATABASE_URL'), echo=True)
+create_session = sessionmaker(bind=engine)
+session = create_session()
 
 app = bottle.Bottle()
 plugin = sqlalchemy.Plugin(engine, Base.metadata)
@@ -42,3 +46,19 @@ class Tip(Base):
 
     def __repr__(self):
         return "<Tip('%d', '%s')>" % (self.id, self.text)
+
+
+def get_tags():
+    return session.query(Hashtag).all()
+
+
+def get_tips(tag=None):
+    if tag is not None and re.match(r'^[a-z0-9]+$', tag.lower()):
+        filter_ = "%{}%".format(tag.lower())
+        tips = session.query(Tip)
+        tips = tips.filter(Tip.text.ilike(filter_))
+    else:
+        tips = session.query(Tip)
+
+    tips = tips.order_by(Tip.likes.desc())
+    return tips.all()

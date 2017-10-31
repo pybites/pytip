@@ -43,8 +43,8 @@ def test_get_tips(db_setup):
     assert len(tips) == 10
     jupyter_tips = get_tips('jupyter')
     assert len(jupyter_tips) == 2
-    jupyter_tips = get_tips('numpy')
-    assert len(jupyter_tips) == 2
+    numpy_tips = get_tips('numpy')
+    assert len(numpy_tips) == 2
 
 
 def test_add_tips(db_setup):

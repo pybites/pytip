@@ -69,5 +69,7 @@ def test_add_hashtags(db_setup):
                             'python3': 1})
     add_hashtags(new_hashtags) == 6
     hashtags = get_hashtags()
-    assert hashtags[-1].name == 'python3'
+    assert hashtags[1].name == 'jupyter'
+    assert hashtags[1].count == 2
+    assert hashtags[-1].name == 'selfpromo'
     assert hashtags[-1].count == 1

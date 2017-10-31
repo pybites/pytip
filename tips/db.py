@@ -16,7 +16,6 @@ def _create_session():
     if 'pytest' in sys.argv[0]:
         db_url += '_test'
 
-    print(db_url)
     if not db_url:
         raise EnvironmentError('Need to set (TEST_)DATABASE_URL')
 

@@ -1,4 +1,4 @@
-% include('header.tpl', popular_tags=popular_tags)
+% include('header.tpl', tags=tags)
 
 <div id="content" class="mui-container-fluid">
 

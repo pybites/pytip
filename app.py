@@ -2,7 +2,7 @@ import os
 
 from bottle import route, run, request, static_file, view
 
-from db import get_tags, get_tips
+from tips import get_hashtags, get_tips
 
 
 @route('/static/<filename:path>')
@@ -14,15 +14,12 @@ def send_static(filename):
 @route('/<tag>')
 @view('index')
 def index(tag=None):
-    if tag is None:
-        tag = request.query.get('tag') or None
-
-    popular_tags = get_tags()
-
+    tag = tag or request.query.get('tag') or None
+    tags = get_hashtags()
     tips = get_tips(tag)
 
     return {'search_tag': tag or '',
-            'popular_tags': popular_tags,
+            'tags': tags,
             'tips': tips}
 
 

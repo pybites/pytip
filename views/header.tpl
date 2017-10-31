@@ -28,7 +28,7 @@
 		</div>
 	</form>
 
-	% for tag in popular_tags:
+	% for tag in tags:
 	  <a style="font-size: {{ tag.count/10 + 1 }}em;" href="/{{ tag.name }}">#{{ tag.name }}</a>&nbsp;&nbsp;
 	% end
 	<br>

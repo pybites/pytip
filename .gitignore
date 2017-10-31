@@ -1,4 +1,5 @@
 *swp
 *db
-__pycache__/
+.cache
+**__pycache__/
 venv

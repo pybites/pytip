@@ -17,7 +17,7 @@
 			% for tip in tips:
 				<div class='tip'>
 					<pre>{{ !tip.text }}</pre>
-					<div class="mui--text-dark-secondary"><strong>{{ tip.likes }}</strong> Likes / <strong>{{ tip.retweets }}</strong> RTs / {{ tip.created }} / <a href="https://twitter.com/pybites/status/{{ tip.tweetid }}" target="_blank">Share</a></div>
+					<div class="mui--text-dark-secondary"><strong>{{ tip.likes }}</strong> Likes / <strong>{{ tip.retweets }}</strong> RTs / {{ tip.created }} / <a href="https://twitter.com/python_tip/status/{{ tip.tweetid }}" target="_blank">Share</a></div>
 				</div>
 			% end
 

@@ -15,7 +15,7 @@
 
     <div class="mui--text-light mui--text-display1 mui--align-vertical">
       <a href="https://twitter.com/python_tip" target="_blank">
-        <img class="logo" src='https://pbs.twimg.com/profile_images/828169453095510016/X0iDPdDL_400x400.jpg' alt='PyBites'>
+        <img class="logo" src='https://pbs.twimg.com/profile_images/1252138962556256257/UXshR51x_400x400.jpg' alt='PyBites'>
       </a>
       <a href="https://pybit.es" target="_blank">
         <img class="logo" src='https://pybit.es/images/pybites.png' alt='PyBites'>
